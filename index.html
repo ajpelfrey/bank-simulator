@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bank Account System</title>
+    <style>
+      body {
+        background: rgb(238,174,202);
+        background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+      }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>Bank Account System</h1>
+        <div class="balance">Current balance: ${{.Balance}}</div>
+        <form action="/transaction" method="post">
+            <label for="amount">Amount:</label>
+            <input type="text" id="amount" name="amount">
+            <select name="transactionType">
+                <option value="deposit">Deposit</option>
+                <option value="withdraw">Withdraw</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Logs section -->
+        <div id="logs">
+            <h2>Transaction Logs</h2>
+            <ul id="transactionLogs">
+                {{range .Logs}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        </div>
+
+        <!-- Clear cache button -->
+        <button id="clearCacheBtn">Clear Logs and Reset Balance</button>
+
+        <!-- Script -->
+        <script>
+            // Function to clear logs and reset balance
+            function clearLogsAndResetBalance() {
+                // Clear transaction logs
+                document.getElementById('transactionLogs').innerHTML = '';
+    
+                // Reset balance
+                document.querySelector('.balance').innerText = 'Current balance: $0.00';
+    
+                // Additional actions if needed
+                // For example, you might want to make an AJAX call to update server-side logs
+                // or perform any other necessary tasks when logs are cleared.
+            }
+    
+            // Event listener for the button click
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('clearCacheBtn').addEventListener('click', function() {
+                    clearLogsAndResetBalance();
+                });
+            });
+        </script>
+    </body>
+    </html>
